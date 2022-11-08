@@ -29,3 +29,8 @@ shinyServer(function(input, output) {
     })
 
 })
+
+
+renderPlot({
+    ggplot(strep_tb)
+})
