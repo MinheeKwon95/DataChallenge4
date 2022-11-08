@@ -10,6 +10,7 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 ```
 
 [Github Link]
+https://github.com/MinheeKwon95/DataChallenge4
 
 [Shiny App Link]
 https://minhee-kwon.shinyapps.io/minheekwon/
