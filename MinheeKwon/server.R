@@ -8,6 +8,11 @@
 #
 
 library(shiny)
+library(rsconnect)
+library(dplyr)
+library(ggplot2)
+library(readr)
+library(medicaldata)
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
