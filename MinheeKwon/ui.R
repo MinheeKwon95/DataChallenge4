@@ -14,7 +14,7 @@ library(plotly)
 shinyUI(fluidPage(
 
     # Application title
-    titlePanel("Streptomycin for TB Dataset"),
+    titlePanel("Data Analysis for Streptomycin for TB Dataset"),
 
     # Sidebar with a slider input for number of bins
     sidebarLayout(
