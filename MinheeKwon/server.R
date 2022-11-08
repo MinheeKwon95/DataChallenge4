@@ -17,7 +17,7 @@ library(medicaldata)
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
 
-    output$distPlot <- renderPlot({
+    output$plot1 <- renderPlot({
 
         # generate bins based on input$bins from ui.R
         x    <- faithful[, 2]
@@ -31,6 +31,3 @@ shinyServer(function(input, output) {
 })
 
 
-renderPlot({
-    ggplot(strep_tb)
-})
