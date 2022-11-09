@@ -50,7 +50,7 @@ shinyUI(fluidPage(
     p(code("baseline_cavitation"), "Cavitation of the Lungs on chest X-ray at baseline (yes, no)"),
     p(code("strep_resistance"), "Resistance to Streptomycin at 6m (1_sens_0-8, 2_mod_8-99, 3_resist_100+)"),
     p(code("radiologic_6m"),"Radiologic outcome at 6m (1_Death, 2_Considerable Deterioration, 3_Moderate_deterioration, 4_No_change, 5_Moderate_improvement, 6_Considerable_improvement)"),
-    p(code("radnum"),"Numeric Rating of Chest X-ray at month 6 (1-6)"),
+    p(code("rad_num"),"Numeric Rating of Chest X-ray at month 6 (1-6)"),
     p(code("improved"), "Dichotomous Outcome of Improved (TRUE, FALSE)"),
     
 
