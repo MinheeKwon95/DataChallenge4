@@ -31,6 +31,13 @@ shinyUI(fluidPage(
     p(strong("Study Design:"),
       "Prospective, Randomized, Multicenter Placebo-Controlled Clinical Trial"),
     
+    p(strong("Study Details:"),
+      "The Streptomycin for Tuberculosis trial in 1948 is considered the first modern randomized, 
+      placebo-controlled clinical trial, which could be done in part because there were very limited supplies 
+      of streptomycin in the UK after World War II. The randomized trial was helpful 
+      to prevent rationing and black market selling of streptomycin, and helped with allocation of 
+      limited hospital isolation beds for bedrest therapy (the control arm, and standard of care at the time)."),
+    
     p(strong("Codebook:")),
     p(code("patient_id"), "Participant ID"),
     p(code("arm"), "Study Arm, (Streptomycin, Control)"),
