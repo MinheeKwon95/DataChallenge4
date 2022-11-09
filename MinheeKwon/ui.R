@@ -12,7 +12,7 @@ library(plotly)
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
-
+    
     # Application title
     titlePanel("Data Analysis for Streptomycin for TB Dataset"),
 
@@ -30,5 +30,17 @@ shinyUI(fluidPage(
         mainPanel(
             plotOutput("plot1")
         )
+    )
+))
+
+shinyUI(navbarPage(
+    "Page title",   
+    tabPanel("panel 1", "one"),
+    tabPanel("panel 2", "two"),
+    tabPanel("panel 3", "three"),
+    navbarMenu("subpanels", 
+               tabPanel("panel 4a", "four-a"),
+               tabPanel("panel 4b", "four-b"),
+               tabPanel("panel 4c", "four-c")
     )
 ))
