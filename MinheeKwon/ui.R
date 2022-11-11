@@ -57,15 +57,24 @@ shinyUI(fluidPage(
     # Sidebar with a slider input for number of bins
     sidebarLayout(
         sidebarPanel(
-            sliderInput("case_control",
-                        "Number of bins:",
-                        min = 1,
-                        max = 110,
-                        value = 30)
+            radioButtons(
+              inputId = "case_control",
+              label = "Streptomycin or Placebo",
+              choices = c("Streyptomycin" = "Streptomycin",
+                          "Placebo" = "Placebo")
+        ),
+        
+        helpText(
+          strong(
+            "To see if resistance to streptomocyin "
+          )
+        ),
+        helpText(
+          "Helllo Explanation"
         ),
         # Show a plot of the generated distribution
         mainPanel(
-            plotOutput("plot1")
+            plotlyOutput("plot1")
         )
     )
 ))
