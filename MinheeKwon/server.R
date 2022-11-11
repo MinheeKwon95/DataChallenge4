@@ -30,15 +30,19 @@ shinyServer(function(input, output) {
                  y = "Count") +
             guides(fill = guide_legend(title = "Streptomycin VS Placebo")) 
 
-        # generate bins based on input$bins from ui.R
-        # x    <- faithful[, 2]
-        # bins <- seq(min(x), max(x), length.out = input$bins + 1)
-
-        # draw the histogram with the specified number of bins
-        #hist(x, breaks = bins, col = 'darkgray', border = 'white')
-
         ggplotly(p1)
     })
-
+    
+    output$plot2 <- renderPlotly({
+        p2 <- ggplot(data = strep_1,
+                     aes(x = gender, fill = case_control)) +
+            geom_boxplot() +
+            labs(x = "Gender",
+                 y = "",
+                 title = "Boxplot of numeric rating of Chest X-ray between women and male")
+        
+        ggplotly(p2)
+    })
+    
 })
 
