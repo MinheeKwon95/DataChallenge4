@@ -8,41 +8,73 @@
 #
 
 library(shiny)
-library(rsconnect)
-library(dplyr)
+library(plotly)
 library(ggplot2)
-library(readr)
 library(medicaldata)
+library(tidyverse)
+library(dplyr)
+
+## Data Wrangling
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
-
-    output$plot1 <- renderPlotly({
-        strep_1 <- strep_tb %>%
+    
+    ## Plot 1
+    output$plot_1 <- renderPlot({
+        strep_1 <- strep_tb %>% 
             mutate(case_control = ifelse(arm %in% c("Streptomycin"), "Streptomycin", "Placebo")) %>%
-            filter(case_control == input$case_control)
+            filter(case_control %in% input$case_control)
         
-        # create bar plot
-        p1 <- ggplot(data = strep_1,
-                     aes(x = rad_num, fill = case_control)) +
+        ggplot(data = strep_1,
+               aes(x = rad_num,
+                   fill = case_control)) + 
             geom_bar() +
-            labs(x = "Numeric Rating of Chest X-ray at month 6 (1-6)",
-                 y = "Count") +
+            labs(x = "Numeric Rating of Chest X-ray at month 6",
+                 y = "Count",
+                 title ="Numeric Rating of Chest X-ray at month 6 for Streptomycin VS Placebo") +
             guides(fill = guide_legend(title = "Streptomycin VS Placebo")) 
-
-        ggplotly(p1)
+        
+        #ggplotly(ggplot_plot_1)
+        
+        
     })
     
-    output$plot2 <- renderPlotly({
-        p2 <- ggplot(data = strep_1,
-                     aes(x = gender, fill = case_control)) +
+    output$plot_2 <- renderPlotly({
+        
+        # Plot 2
+        strep_1 <- strep_tb %>% 
+            mutate(case_control = ifelse(arm %in% c("Streptomycin"), "Streptomycin", "Placebo")) %>%
+            filter(case_control %in% input$case_control)
+        
+        ggplot_plot_2 <- ggplot(data = strep_1,
+                                aes(x = gender,
+                                    y = rad_num,
+                                    fill = case_control)) + 
             geom_boxplot() +
             labs(x = "Gender",
-                 y = "",
-                 title = "Boxplot of numeric rating of Chest X-ray between women and male")
+                 y = "Numeric Rating of Chest X-ray at month 6",
+                 title ="Numeric Rating of Chest X-ray at month 6 for gender") +
+            theme(plot.title = element_text(hjust = 0.5))
+        ggplotly(ggplot_plot_2)
+    })
+    
+    output$plot_3 <- renderPlotly({
         
-        ggplotly(p2)
+        # Plot 3
+        strep_1 <- strep_tb %>% 
+            mutate(case_control = ifelse(arm %in% c("Streptomycin"), "Streptomycin", "Placebo")) %>%
+            filter(case_control %in% input$case_control)
+        
+        ggplot_plot_3 <- ggplot(data = strep_1,
+                                aes(x = improved,
+                                    fill = case_control)) + 
+            geom_bar() +
+            labs(x = "Outcome of improved ratings",
+                 y = "Count", 
+                 title ="Improved Ratings between Streptomycin VS Placebo") +
+            guides(fill = guide_legend(title = "Streptomycin VS Placebo")) 
+        
+        ggplotly(ggplot_plot_3)
     })
     
 })
-

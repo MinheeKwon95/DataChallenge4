@@ -10,72 +10,60 @@
 library(shiny)
 library(plotly)
 
-# Define UI for application that draws a histogram
-shinyUI(fluidPage(
+shinyUI(
+  fluidPage(
+    titlePanel("Data Analysis for Streptomycin for Tuberculosis Dataset"),  # Title of the shinyapp
     
-    # Application title
-    titlePanel("Data Analysis for Streptomycin for TB Dataset"),
+    h6("Minhee Kwon"),   
     
-    h3(strong("Introduction of dataset")),
-    p(
-        strong("Summary:"),
+    sidebarLayout(                                                
+      sidebarPanel( 
+        helpText(strong("Data of Streptomycin for TB")),
+        helpText("This data set contains reconstructed records of 107 participants with pulmonary tuberculosis. 
+                          This is the first modern report of a randomized clinical trial. Patients were treated with streptomycin and
+                          control groups were controlled with placebo.
+                          While patients on streptomycin often improved rapidly, streptomycin resistance developed, 
+                          and many participants relapsed."),
         
-        "This data set contains reconstructed records of 107 participants with pulmonary tuberculosis. 
-        In 1948, collapse therapy (collapsing the lung by puncturing it with a needle) and bedrest in 
-        sanitariums were the standard of care. This is the first modern report of a randomized clinical trial. 
-        While patients on streptomycin often improved rapidly, streptomycin resistance developed, 
-        and many participants relapsed. There was still a significant difference in the death rate between the two arms. 
-        A similar effect was seen with PAS, another new therapy for tuberculosis, and the authors rapidly figured out that combination therapy was needed, 
-        which was tested in two subsequent trials, which were published in 1952."
-    ),
-    p(strong("Study Design:"),
-      "Prospective, Randomized, Multicenter Placebo-Controlled Clinical Trial"),
-    
-    p(strong("Study Details:"),
-      "The Streptomycin for Tuberculosis trial in 1948 is considered the first modern randomized, 
-      placebo-controlled clinical trial, which could be done in part because there were very limited supplies 
-      of streptomycin in the UK after World War II. The randomized trial was helpful 
-      to prevent rationing and black market selling of streptomycin, and helped with allocation of 
-      limited hospital isolation beds for bedrest therapy (the control arm, and standard of care at the time)."),
-    
-    p(strong("Codebook:")),
-    p(code("patient_id"), "Participant ID"),
-    p(code("arm"), "Study Arm, (Streptomycin, Control)"),
-    p(code("dose_strep_g"),"Dose of Streptomycin in Grams"),
-    p(code("dose_PAS_g"),"Dose of Para-Amino-Salicylate in Grams"),
-    p(code("gender"),"Gender (M = Male, F = Female)"),
-    p(code("baseline_condition"),"Condition of the Patient at Baseline (1_Good, 2_Fair, 3_Poor)"),
-    p(code("baseline_temp"),"Oral Temperature at Baseline (1_98-98.9F, 2_99-99.9F, 3_100-100.9F, 4_100F+)"),
-    p(code("baseline_esr"),"Erythrocyte Sedimentation Rate at baseline (1_1-10, 2_11-20, 3_21-50, 4_51+)"),
-    p(code("baseline_cavitation"), "Cavitation of the Lungs on chest X-ray at baseline (yes, no)"),
-    p(code("strep_resistance"), "Resistance to Streptomycin at 6m (1_sens_0-8, 2_mod_8-99, 3_resist_100+)"),
-    p(code("radiologic_6m"),"Radiologic outcome at 6m (1_Death, 2_Considerable Deterioration, 3_Moderate_deterioration, 4_No_change, 5_Moderate_improvement, 6_Considerable_improvement)"),
-    p(code("rad_num"),"Numeric Rating of Chest X-ray at month 6 (1-6)"),
-    p(code("improved"), "Dichotomous Outcome of Improved (TRUE, FALSE)"),
-    
-
-    # Sidebar with a slider input for number of bins
-    sidebarLayout(
-        sidebarPanel(
-            radioButtons(
-              inputId = "case_control",
-              label = "Streptomycin or Placebo",
-              choices = c("Streyptomycin" = "Streptomycin",
-                          "Placebo" = "Placebo")
-        ),
-        
-        helpText(
-          strong(
-            "To see if resistance to streptomocyin "
-          )
-        ),
-        helpText(
-          "Helllo Explanation"
-        ),
-        # Show a plot of the generated distribution
-        mainPanel(
-            plotlyOutput("plot1")
+        radioButtons(
+          inputId = "case_control",
+          label = "Streptomycin or Placebo",
+          choices = c("Streyptomycin" = "Streptomycin",
+                      "Placebo" = "Placebo")),
+        h5("Instruction: Select the group for people with treatment (Streptomycin) and control group with Placebo.")                   
+      ),
+      mainPanel(
+        tabsetPanel(
+          tabPanel("Plot 1",                                              # Plot 1 & Description
+                   plotOutput("plot_1"),
+                   h6("This histogram shows the numeric rating of Chest x-ray at month 6 for both patients with treament and control groups.
+                                Rating 1- 6 refers to (1_Death, 2_Considerable Deterioration, 3_Moderate_deterioration, 
+                                4_No_change, 5_Moderate_improvement, 6_Considerable_improvement).
+                                Patients with Streyptomycin 2 grams daily had the highest ratings for considerable improvement.
+                                For the control group with placebo, many people died and rated moderate deterioration and moderate improvement.
+                                In general, patients with treament with Streyptomycin experienced improvement with treatment.")), 
+          
+          tabPanel("Plot 2",                                              # Plot 2 & Description
+                   plotlyOutput("plot_2"),
+                   h6("This boxplot is filtered by case and placebo group for study outcome.
+                                In order to see if gender plays an effect on study outcome, compared the outome
+                                based on genders. For x-axis: 1=Death, 2=Considerable Deterioration, 3=Moderate deterioration, 
+                                4=No change, 5=Moderate improvement, 6=Considerable improvement.
+                                There were more variations among female for patient group with treatment than the the variation
+                                among male for patient gorup with treatment. In general, both female and male patients improved with Streyptomycin. 
+                                The median for male patients were little higher than female for having 6 and 5 accordingly. For the placebo group,
+                                both men and women had same median as 3, moderate deterioration.")),
+          
+          tabPanel("Plot 3",                                              # Plot 3 & Description
+                   plotlyOutput("plot_3"),
+                   h6("This plot shows if there is improvement between patients with Streyptomycin and control group with placebo.
+                                For the patients on streptomycin, there were twice more improvement and it was the opposite for the control group with placebo.
+                                We can conclude that the treatment with Streyptomycin is effective for having patients improved with the treatment
+                                while the placebo group didn't."))
         )
+      )
     )
-))
+  )
+)
+
 
